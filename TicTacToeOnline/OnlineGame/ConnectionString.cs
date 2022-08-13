@@ -8,6 +8,7 @@ namespace OnlineGame
 {
     public static class ConnectionString
     {
+        // Строка подключения к MongoDB
         public static string Connection { get; } = "";
     }
 }
