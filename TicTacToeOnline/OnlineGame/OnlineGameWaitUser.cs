@@ -47,9 +47,6 @@ namespace OnlineGame
             IMongoDatabase database = client.GetDatabase("Core");
             IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>(game.collection_name);
 
-            var filter = new BsonDocument("id", "head");
-            List<BsonDocument> head = await collection.Find(filter).ToListAsync();
-
             var filter2 = new BsonDocument("id", "body");
             List<BsonDocument> body = await collection.Find(filter2).ToListAsync();
 
@@ -61,21 +58,6 @@ namespace OnlineGame
                     Close();
                 }
             }
-            /*
-            foreach (var p in head)
-            {
-                if (p.GetValue("opponent").ToString() == "true")
-                {
-                    is_find = true;
-                    Close();
-                }
-            }*/
-            //MessageBox.Show(head.ToString());
-            /*
-            if (head.GetElement("opponent").ToString() == "false")
-            {
-                MessageBox.Show(head.ToString());
-            }*/
         }
 
         private void OnlineGameWaitUser_FormClosing(object sender, FormClosingEventArgs e)
@@ -84,11 +66,6 @@ namespace OnlineGame
             {
                 game.Close();
             }
-        }
-
-        private void OnlineGameWaitUser_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            //game.BreakGame(); 
         }
     }
 }

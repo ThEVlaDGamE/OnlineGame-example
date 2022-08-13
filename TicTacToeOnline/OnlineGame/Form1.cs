@@ -15,72 +15,8 @@ namespace OnlineGame
         public Form1()
         {
             InitializeComponent();
-
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Size = new Size(0, 0);
-            tableLayoutPanel3.Size = new Size(0, 0);
         }
 
-        // Один игрок
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        // Два игрока
-        private void button2_Click(object sender, EventArgs e)
-        {
-            /*
-            OnlineGameSetts onlineGameSetts = new OnlineGameSetts();
-            onlineGameSetts.ShowDialog();*/
-            tableLayoutPanel1.Dock = DockStyle.None;
-            tableLayoutPanel1.Size = new Size(0, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-        }
-
-        // Настройки
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        // Выход
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-
-
-        //=========================================================================================
-
-        // Сетевая игра
-        private void button5_Click(object sender, EventArgs e)
-        {
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Size = new Size(0, 0);
-            tableLayoutPanel2.Dock = DockStyle.None;
-        }
-
-        // Локальная игра
-        private void button6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        // Назад
-        private void button7_Click(object sender, EventArgs e)
-        {
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Size = new Size(0, 0);
-            tableLayoutPanel2.Dock = DockStyle.None;
-        }
-
-
-        //=========================================================================================
-
-
-        
         // Создать игру
         private void button10_Click(object sender, EventArgs e)
         {
@@ -95,12 +31,10 @@ namespace OnlineGame
             onlineGameJoin.ShowDialog();
         }
 
-        // Назад
+        // Выход
         private void button8_Click(object sender, EventArgs e)
         {
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Size = new Size(0, 0);
-            tableLayoutPanel3.Dock = DockStyle.None;
+            Application.Exit();
         }
     }
 }

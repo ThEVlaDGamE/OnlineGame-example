@@ -50,8 +50,6 @@ namespace OnlineGame
             Text = collection_name;
             this.collection_name = collection_name;
             this.id = id;
-
-            
         }
 
         public Game(string collection_name, OnlineGameCreate online, int id)
@@ -70,7 +68,6 @@ namespace OnlineGame
                 random.Next(0, 99999999);
 
 
-
             timer1.Enabled = true;
         }
         public Game(string collection_name, OnlineGameJoin online, int id)
@@ -85,27 +82,14 @@ namespace OnlineGame
 
         public void BreakGame()
         {
-            //MessageBox.Show("BreakGame");
             MongoClient client = new MongoClient(ConnectionString.Connection);
             IMongoDatabase database = client.GetDatabase("Core");
             database.DropCollection(collection_name);
-            /*
-            if (onlineGameWaitUser != null)
-            {
-                onlineGameWaitUser.Close();
-            }*/
         }
 
         private void Game_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //MessageBox.Show("Game_FormClosing");
             BreakGame();
-        }
-
-        private void Game_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            //MessageBox.Show("Game_FormClosed");
-            //BreakGame();
         }
 
         private void Game_Load(object sender, EventArgs e)
@@ -159,19 +143,6 @@ namespace OnlineGame
 
             foreach (var p in head)
             {
-                /*
-                if (p.GetValue("player1").ToInt32() == id)
-                {
-                    number_turn = 1;
-                }
-                else if(p.GetValue("player2").ToInt32() == id)
-                {
-                    number_turn = 0;
-                }
-
-                player1 = p.GetValue("player1").ToInt32();
-                player2 = p.GetValue("player2").ToInt32();*/
-
                 id_turn = p.GetValue("turn").ToString();
                 if (id_turn == id.ToString())
                 {
@@ -338,8 +309,6 @@ namespace OnlineGame
             Close();
         }
 
-        //async void 
-
         private async void pictureBox1_Click(object sender, EventArgs e)
         {
             PictureBox pictureBox = sender as PictureBox;
@@ -382,8 +351,6 @@ namespace OnlineGame
                     };
 
                     await collection.FindOneAndUpdateAsync(filter, game);
-
-                    //id_turn = "";
                 }
             }
         }

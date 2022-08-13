@@ -32,7 +32,6 @@ namespace OnlineGame
         async void CreateGame()
         {
             // Создание
-            //string connectionString = "mongodb+srv://OnlineGame:222119vor@onlinegame.ko6d1.mongodb.net/Core?retryWrites=true&w=majority";
             string connectionString = ConnectionString.Connection;
 
             Random random = new Random();
@@ -51,6 +50,7 @@ namespace OnlineGame
             BsonDocument game = new BsonDocument {
                         { "id", "head" },
                         { "name", textBox1.Text },
+                        { "password", textBox2.Text },                        
                         { "opponent", "false"}
                     };
             await collection.InsertOneAsync(game);
@@ -76,31 +76,14 @@ namespace OnlineGame
                         { "picture9", ""},
                     };
             await collection.InsertOneAsync(game3);
-            /*
-            async void Write()
-            {
-                await collection.InsertOneAsync(game);
-            }
-            MessageBox.Show("цкшку");
-            Write();*/
 
             MessageBox.Show("Игра успешно создана!");
-            Game f_game = new Game(textBox1.Text, this, id);
+            Game form_game = new Game(textBox1.Text, this, id);
             try
             {
-                f_game.ShowDialog();
+                form_game.ShowDialog();
             }
             catch{}
-            /*
-            if (f_game != null)
-            {
-                f_game.ShowDialog();
-            }*/
-
-            /*
-            var filter = new BsonDocument();
-            //list = await collection.Find(filter).ToListAsync();
-            var list = collection.Find(filter).ToList();*/
 
         }
 

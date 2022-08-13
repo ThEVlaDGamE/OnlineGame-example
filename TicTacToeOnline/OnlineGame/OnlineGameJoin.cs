@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace OnlineGame
 {
@@ -30,21 +31,13 @@ namespace OnlineGame
             database = client.GetDatabase("Core");
 
             GetCollections();
-
-            //listBox1.Items.Add();
         }
-        /*
-        async void Sett()
-        {
-            database = client.GetDatabase("Core");
-        }*/
 
         async void GetCollections()
         {
             listBox1.Items.Clear(); 
 
             Text = "Обновление списка...";
-            //IMongoCollection<BsonDocument> collections = await database.ListCollectionsAsync();
             IAsyncCursor<string> collections_ = await database.ListCollectionNamesAsync();
             collections = collections_.ToList();
 
@@ -67,10 +60,6 @@ namespace OnlineGame
                             collections.RemoveAt(i);
                         }
                     }
-                }
-                else
-                {
-                    //collections.RemoveAt(i);
                 }
             }
 
@@ -96,6 +85,16 @@ namespace OnlineGame
                     IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>(collections[listBox1.SelectedIndex]);
                     List<BsonDocument> head = await collection.Find(filter).ToListAsync();
 
+                    // Проверка пароля
+                    if (head[0].GetValue("password") != "")
+                    {
+                        if (head[0].GetValue("password") != textBox1.Text)
+                        {
+                            MessageBox.Show("Пароль неверный!");
+                            return;
+                        }
+                    }
+
                     Random random = new Random();
                     int id = random.Next(0, 9999999) +
                         random.Next(0, 9999999) +
@@ -107,6 +106,7 @@ namespace OnlineGame
                     BsonDocument game = new BsonDocument {
                         { "id", head[0].GetValue("id")},
                         { "name", head[0].GetValue("name")},
+                        { "password", head[0].GetValue("password") },
                         { "opponent", "true"}
                     };
 
@@ -119,7 +119,6 @@ namespace OnlineGame
 
                     if (random.Next(0, 2) == 0)
                     {
-                        List<BsonDocument> game_ = await collection.Find(filter3).ToListAsync();
                         BsonDocument game3 = new BsonDocument {
                             { "id", "game" },
                             { "turn", id.ToString() },
@@ -137,7 +136,6 @@ namespace OnlineGame
                         await collection.FindOneAndUpdateAsync(filter3, game3);
                     }
 
-                    //await collection.UpdateOneAsync(filter, game);
                     await collection.FindOneAndUpdateAsync(filter, game);
                     await collection.FindOneAndUpdateAsync(filter2, game2);
 
